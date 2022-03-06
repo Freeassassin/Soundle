@@ -1,6 +1,9 @@
-* 
-{
+* {
   margin: 0;
+}
+
+h1 {
+  color: white;
 }
 
 body {
@@ -14,6 +17,11 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.text
+{
+  color: white;
 }

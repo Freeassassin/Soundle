@@ -36,3 +36,43 @@
     transform: rotate(360deg);
   }
 }
+
+.title {
+  padding-bottom: 1%;
+}
+
+.intro {
+  color: white;
+  padding-bottom: 10%;
+}
+
+.rhap_container {
+  margin: auto auto 30px;
+}
+
+.App label {
+  padding-left: 5%;
+  text-align: left;
+  display: block;
+}
+.App h2 {
+  font-size: 20px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.App input {
+  width: 90%;
+  padding: 6px 10px;
+  margin: 10px auto;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+
+.submitBtn {
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
