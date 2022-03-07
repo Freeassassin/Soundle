@@ -4,29 +4,46 @@ import "react-h5-audio-player/lib/styles.css";
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import database from "./firebase";
+import {db} from "./database";
+import {getFirestore, collection, getDocs} from "firebase/firestore/lite";
 
 toast.configure();
-function App() {
-  const [sound, setSound] = useState();
-  const [guess, setGuess] = useState();
-  const answers = require("./sounds/answers.json");
 
+async function getAnswer(db) {
+  const answersCol = collection(db, "answers");
+  const answersSnapshot = await getDocs(answersCol);
+  const answerList = answersSnapshot.docs.map((doc) => doc.data());
+  return answerList;
+}
+
+async function setAnswersFromDB(setAnswers, day) {
+  setAnswers(
+    await getAnswer(db).then(function (result) {
+      return result[0].Day[day];
+    })
+  );
+}
+
+function App() {
   const origin = new Date("2022-03-06");
   const today = new Date();
 
   const day = Math.floor(Math.abs(today - origin) / (1000 * 60 * 60 * 24));
 
-  const answer = answers.day[day];
+  const [sound, setSound] = useState();
+  const [guess, setGuess] = useState();
+  const [answers, setAnswers] = useState();
 
   useEffect(() => {
     setSound(require(`./sounds/${day}.mp3`));
-  });
+    setAnswersFromDB(setAnswers, day);
+    console.log(answers);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (answer.includes(guess.toLowerCase())) {
+    if (answers.includes(guess.toLowerCase())) {
       toast.success("YOU GOT IT!", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
